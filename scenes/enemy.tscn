@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cyd5g0i2s8hjr" path="res://scenes/hurtbox.tscn" id="1_8ultm"]
 [ext_resource type="Texture2D" uid="uid://na33d76ops4e" path="res://assets/enemies_v2.png" id="1_btyyq"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_frpjo"]
 [ext_resource type="Texture2D" uid="uid://bn4bimc3xyhgn" path="res://assets/enemies.png" id="2_8i1jq"]
 [ext_resource type="PackedScene" uid="uid://jcprfrjgl6ns" path="res://scenes/healthbar.tscn" id="3_8upkv"]
 [ext_resource type="Texture2D" uid="uid://dvhg0ghxk5san" path="res://assets/enemy_red_helmet_die.png" id="3_mutlt"]
@@ -10,41 +11,6 @@
 [ext_resource type="Script" path="res://misc/states/EnemyIdle.gd" id="8_hui7x"]
 [ext_resource type="Script" path="res://misc/states/EnemyChase.gd" id="9_pcqyt"]
 [ext_resource type="Script" path="res://misc/states/EnemyAttack.gd" id="10_nhxaq"]
-
-[sub_resource type="GDScript" id="GDScript_cr6sq"]
-script/source = "extends CharacterBody2D
-
-@onready var healthbar = $Healthbar
-
-
-func _ready():
-	healthbar.init_health(Helper.health)
-
-func _physics_process(delta):
-	move_and_slide()
-
-	
-func _set_health(value):
-	healthbar.health = Helper.health
-
-func die():
-	print(\"enemy is dying\")
-	$AnimatedSprite2D.play(\"die\")
-	#queue_free()
-
-
-func _on_hurtbox_area_entered(area):
-	print(\"enemy got hit!\")
-	if area.name == \"Hitbox\":
-		healthbar.health  -= area.hurt_val
-		if healthbar.health <= 0:
-			die()
-
-
-func _on_animated_sprite_2d_animation_finished():
-	if $AnimatedSprite2D.animation == \"die\":
-		queue_free()
-"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gx8ok"]
 
@@ -1046,7 +1012,7 @@ radius = 13.7846
 [node name="enemy_red_helmet" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 3
-script = SubResource("GDScript_cr6sq")
+script = ExtResource("1_frpjo")
 
 [node name="Hurtbox" parent="." instance=ExtResource("1_8ultm")]
 collision_layer = 4
