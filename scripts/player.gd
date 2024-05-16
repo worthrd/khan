@@ -68,8 +68,6 @@ func _physics_process(delta):
 		
 		position+=velocity * delta
 		move_and_slide()
-		
-		is_on_wall()
 			
 		if input == Vector2(0,0):
 			if last_direction == "down":

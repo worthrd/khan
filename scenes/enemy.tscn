@@ -1,4 +1,4 @@
-[gd_scene load_steps=131 format=3 uid="uid://b61mwrn6ywspb"]
+[gd_scene load_steps=133 format=3 uid="uid://b61mwrn6ywspb"]
 
 [ext_resource type="PackedScene" uid="uid://cyd5g0i2s8hjr" path="res://scenes/hurtbox.tscn" id="1_8ultm"]
 [ext_resource type="Texture2D" uid="uid://na33d76ops4e" path="res://assets/enemies_v2.png" id="1_btyyq"]
@@ -8,96 +8,24 @@
 [ext_resource type="PackedScene" uid="uid://enn1o1wcibqk" path="res://scenes/hitbox.tscn" id="4_4fncx"]
 [ext_resource type="Script" path="res://misc/states/StateMachine.gd" id="7_d6vyv"]
 [ext_resource type="Script" path="res://misc/states/EnemyIdle.gd" id="8_hui7x"]
+[ext_resource type="Script" path="res://misc/states/EnemyChase.gd" id="9_pcqyt"]
+[ext_resource type="Script" path="res://misc/states/EnemyAttack.gd" id="10_nhxaq"]
 
 [sub_resource type="GDScript" id="GDScript_cr6sq"]
 script/source = "extends CharacterBody2D
 
-var speed = 2 
-var health = 100
-var player = null
-var player_chase = false
-var attack_distance = 100.0
 @onready var healthbar = $Healthbar
 
-func _ready():
-	healthbar.init_health(health)
-	
 
+func _ready():
+	healthbar.init_health(Helper.health)
 
 func _physics_process(delta):
-	if player_chase and not healthbar.health <=0:
-	
-		var direction_vector = player.position - position
-		var proposed = _calculate_direction(direction_vector)
-		
-		var _distance = sqrt(direction_vector.x ** 2  + direction_vector.y ** 2)
-		
-		if _distance < attack_distance: #enemy attack animation
-			if proposed == \"left\":
-				$AnimatedSprite2D.play(\"attack_left\")
-				$AnimationPlayer.play(\"attack_left\")
-			elif  proposed == \"right\":
-				$AnimatedSprite2D.play(\"attack_right\")
-				$AnimationPlayer.play(\"attack_right\")
-			elif  proposed == \"up\":
-				$AnimatedSprite2D.play(\"attack_back\")
-				$AnimationPlayer.play(\"attack_back\")
-			elif  proposed == \"down\":
-				$AnimatedSprite2D.play(\"attack_front\")
-				$AnimationPlayer.play(\"attack_front\")
-		else: #enemy walk animation
-			position+=((player.position - position)/speed)*delta
-			if proposed == \"left\":
-				$AnimatedSprite2D.play(\"walk_left\")
-			elif  proposed == \"right\":
-				$AnimatedSprite2D.play(\"walk_right\")
-			elif  proposed == \"up\":
-				$AnimatedSprite2D.play(\"walk_back\")
-			elif  proposed == \"down\":
-				$AnimatedSprite2D.play(\"walk_front\")
 	move_and_slide()
 
-func _calculate_direction(direction_to_player):
-		var proposed_direction = \"\"
-		
-		if direction_to_player.y < 0: # enemy is at below
-			if direction_to_player.x < 0: #enemy is at right
-				if abs(direction_to_player.y) > abs(direction_to_player.x):
-					proposed_direction = \"up\"
-				else:
-					proposed_direction = \"left\"
-			elif direction_to_player.x > 0: #enemy is at left
-				if abs(direction_to_player.y) > abs(direction_to_player.x):
-					proposed_direction = \"up\"
-				else:
-					proposed_direction = \"right\"
-		elif direction_to_player.y > 0: # enemy is at above
-			if direction_to_player.x < 0: #enemy is at right
-				if abs(direction_to_player.y) > abs(direction_to_player.x):
-					proposed_direction = \"down\"
-				else:
-					proposed_direction = \"left\"
-			elif direction_to_player.x > 0: #enemy is at left
-				if abs(direction_to_player.y) > abs(direction_to_player.x):
-					proposed_direction = \"down\"
-				else:
-					proposed_direction = \"right\"
-			
-		return proposed_direction
-	
-
-func _on_detection_area_body_entered(body):
-	print(\"somebody is in !\")
-	player = body
-	player_chase = true
-
-
-func _on_detection_area_body_exited(body):
-	player = null
-	player_chase = false
 	
 func _set_health(value):
-	healthbar.health = health
+	healthbar.health = Helper.health
 
 func die():
 	print(\"enemy is dying\")
@@ -1129,7 +1057,7 @@ scale = Vector2(5.44, 6)
 shape = SubResource("CapsuleShape2D_gx8ok")
 debug_color = Color(0.917647, 0.0823529, 0.662745, 0.419608)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["animated_sprite"]]
 scale = Vector2(1.4, 1.4)
 sprite_frames = SubResource("SpriteFrames_cnolf")
 animation = &"idle_front"
@@ -1142,14 +1070,14 @@ monitorable = false
 [node name="zone" type="CollisionShape2D" parent="detection_area"]
 shape = SubResource("CircleShape2D_r4ntt")
 
-[node name="Healthbar" parent="." instance=ExtResource("3_8upkv")]
+[node name="Healthbar" parent="." groups=["healthbar"] instance=ExtResource("3_8upkv")]
 offset_left = -50.0
 offset_top = -97.0
 offset_right = 45.0
 offset_bottom = -83.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_bb3ax")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." groups=["animation_player"]]
 libraries = {
 "": SubResource("AnimationLibrary_ulb1e")
 }
@@ -1168,16 +1096,24 @@ debug_color = Color(0.882353, 0, 0.811765, 0.419608)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("7_d6vyv")
-initial_state = NodePath("EnemyIdle")
+initial_state = NodePath("Idle")
 
-[node name="EnemyIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "enemy_detection_area")]
 script = ExtResource("8_hui7x")
+enemy = NodePath("../..")
+enemy_detection_area = NodePath("../../detection_area")
+
+[node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "enemy_detection_area")]
+script = ExtResource("9_pcqyt")
+enemy = NodePath("../..")
+enemy_detection_area = NodePath("../../detection_area")
+
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("10_nhxaq")
 enemy = NodePath("../..")
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
-[connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
 
 [editable path="Hurtbox"]
 [editable path="Marker2D/Hitbox"]

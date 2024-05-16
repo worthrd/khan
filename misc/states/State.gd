@@ -2,6 +2,9 @@ extends Node
 class_name State
 
 signal Transitioned
+var player = null
+
+var context: StateMachine
 
 
 func Enter():
@@ -18,7 +21,7 @@ func Update(_delta: float):
 func  Physics_Update(_delta: float):
 	pass
 	
-	
+
 	
 
 	

@@ -6,6 +6,7 @@ class_name StateMachine
 
 var current_state: State
 var states: Dictionary = {}
+var previous_state: State
 
 
 func _ready():
@@ -13,6 +14,7 @@ func _ready():
 		if child is State:
 			states[child.name.to_lower()] = child
 			child.Transitioned.connect(on_child_transition)
+			child.context = self
 			
 	
 	if initial_state:
@@ -40,6 +42,7 @@ func on_child_transition(state, new_state_name):
 	
 	if current_state:
 		current_state.Exit()
+		previous_state = current_state
 		
 	new_state.Enter()
 	
