@@ -30,7 +30,10 @@ func Physics_Update(delta: float):
 			_play_walk_animation(proposed,delta)
 
 func _on_detection_area_body_exited(body):
-	Transitioned.emit(self, "idle")
+	var parent = body.get_parent()
+	print("enemy detection area exited %s" % parent.name)
+	if parent.name == "Player":
+		Transitioned.emit(self, "idle")
 	
 
 func _play_walk_animation(proposed:String, delta:float):

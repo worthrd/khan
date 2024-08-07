@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://djub5xkmbjqk"]
+
+[ext_resource type="Script" path="res://scripts/active_item.gd" id="2_ornwh"]
+
+[node name="ActiveItem" type="Sprite2D"]
+scale = Vector2(2, 2)
+script = ExtResource("2_ornwh")

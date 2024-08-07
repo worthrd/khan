@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bo5vjmktnewrv"]
+
+[ext_resource type="Script" path="res://scripts/arrow.gd" id="1_3pxcn"]
+[ext_resource type="Texture2D" uid="uid://3akk85p14hec" path="res://assets/arrow.png" id="1_i6ue3"]
+[ext_resource type="PackedScene" uid="uid://enn1o1wcibqk" path="res://scenes/hitbox.tscn" id="3_1lwqh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j3ywp"]
+radius = 6.0
+height = 38.0
+
+[node name="arrow" type="Area2D"]
+script = ExtResource("1_3pxcn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.785398
+texture = ExtResource("1_i6ue3")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(0, 4.76837e-07)
+scale = Vector2(0.3, 0.6)
+
+[node name="Hitbox" parent="." instance=ExtResource("3_1lwqh")]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_j3ywp")
+
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]

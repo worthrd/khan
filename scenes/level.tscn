@@ -1,11 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://q5pf61q1q0rc"]
+[gd_scene load_steps=14 format=3 uid="uid://q5pf61q1q0rc"]
 
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_d4b33"]
 [ext_resource type="PackedScene" uid="uid://cna7n870qyade" path="res://scenes/player.tscn" id="1_movhv"]
 [ext_resource type="PackedScene" uid="uid://b2e2g2ly5n2k7" path="res://scenes/tile_map.tscn" id="2_sudfg"]
 [ext_resource type="Texture2D" uid="uid://djeo3mrns0rf4" path="res://assets/khan_terrain_tiles_v3.png" id="3_prgu0"]
 [ext_resource type="PackedScene" uid="uid://bweand7a0rbsw" path="res://scenes/tile_map_trees.tscn" id="3_wk7jq"]
 [ext_resource type="Texture2D" uid="uid://bptxpunv6qew" path="res://assets/tileset_trees_and_others_v2.png" id="5_uvvxa"]
 [ext_resource type="PackedScene" uid="uid://b61mwrn6ywspb" path="res://scenes/enemy.tscn" id="6_51syp"]
+[ext_resource type="PackedScene" uid="uid://cm566lxtupddl" path="res://scenes/inventory_ui.tscn" id="7_qmw1k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_abqyj"]
 texture = ExtResource("3_prgu0")
@@ -1175,6 +1177,7 @@ sources/0 = SubResource("TileSetAtlasSource_ep7ug")
 radius = 99.4786
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_d4b33")
 
 [node name="Player" parent="." instance=ExtResource("1_movhv")]
 position = Vector2(641, 360)
@@ -1200,3 +1203,23 @@ collision_mask = 5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(184, 125)
 shape = SubResource("CircleShape2D_dcw5s")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="InventoryUI" parent="CanvasLayer" instance=ExtResource("7_qmw1k")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = -102.0
+offset_right = 102.0
+offset_bottom = 102.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="item_spawn_timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="timeout" from="item_spawn_timer" to="." method="_on_item_spawn_timer_timeout"]

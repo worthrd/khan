@@ -1,10 +1,15 @@
 extends CharacterBody2D
 
 @export var speed = 250
-@onready var animated_sprite = $AnimatedSprite2D
+@onready var animated_sprite = $Animations
 @export  var last_direction = "down"
 @onready var healthbar = $Healthbar
 @onready var animation = $AnimationPlayer
+@export var inventory: Inventory
+
+var bow_equipped = true
+var bow_cooldown = true
+var arrow = preload("res://scenes/arrow.tscn")
 
 var health = 200
 
@@ -37,7 +42,6 @@ func _physics_process(delta):
 			animated_sprite.play("attack_right")
 			animation.play("attack_right")
 	else:
-		
 		var velocity = Vector2.ZERO
 		var animation_input = ""
 		#position += input * speed * delta
@@ -68,6 +72,7 @@ func _physics_process(delta):
 		
 		position+=velocity * delta
 		move_and_slide()
+		
 			
 		if input == Vector2(0,0):
 			if last_direction == "down":
@@ -78,11 +83,37 @@ func _physics_process(delta):
 				animated_sprite.play("idle_right")
 			elif last_direction == "left":
 				animated_sprite.play("idle_left")
+				
+		var mouse_pos = get_global_mouse_position()
+		$MarkerArrow.look_at(mouse_pos)
+		
+		if Input.is_action_just_pressed("left_mouse") and bow_equipped and bow_cooldown and $active_item.active_item == "bow":
+			
+			bow_cooldown =false
+			var arrow_instance = arrow.instantiate()
+			arrow_instance.rotation = $MarkerArrow.rotation
+			arrow_instance.global_position = $MarkerArrow.global_position
+			add_child(arrow_instance)
+			
+			if last_direction == "down":
+				animated_sprite.play("attack_bow_front")
+			elif last_direction == "up":
+				animated_sprite.play("attack_bow__back")
+			elif last_direction == "left":
+				animated_sprite.play("attack_bow_left")
+			elif last_direction == "right":
+				animated_sprite.play("attack_bow_right")
+			
+			await get_tree().create_timer(0.4).timeout
+			bow_cooldown = true
 	
 
 func _on_hurtbox_area_entered(area):
 	print("the player got hit!")
 	print(healthbar.health)
 	healthbar.health -= area.hurt_val
+	
+func collect(item):
+	inventory.insert(item)
 	
 	
