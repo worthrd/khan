@@ -44,23 +44,23 @@ region = Rect2(1024, 0, 256, 256)
 atlas = ExtResource("2_88wdt")
 region = Rect2(1280, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_al0wk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_figrl"]
 atlas = ExtResource("7_g8jr7")
 region = Rect2(0, 768, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cn4p1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvj6c"]
 atlas = ExtResource("7_g8jr7")
 region = Rect2(256, 768, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u77ts"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxrvl"]
 atlas = ExtResource("7_g8jr7")
 region = Rect2(512, 768, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ijmly"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_khawv"]
 atlas = ExtResource("7_g8jr7")
 region = Rect2(768, 768, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sxiil"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgs3r"]
 atlas = ExtResource("7_g8jr7")
 region = Rect2(1024, 768, 256, 256)
 
@@ -559,19 +559,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_al0wk")
+"texture": SubResource("AtlasTexture_figrl")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cn4p1")
+"texture": SubResource("AtlasTexture_gvj6c")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_u77ts")
+"texture": SubResource("AtlasTexture_qxrvl")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ijmly")
+"texture": SubResource("AtlasTexture_khawv")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sxiil")
+"texture": SubResource("AtlasTexture_qgs3r")
 }],
 "loop": false,
 "name": &"attack_bow_back",
@@ -1202,7 +1202,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(-2, 21)
+position = Vector2(-2, 54)
 scale = Vector2(1.2, 1.072)
 collision_mask = 4
 script = ExtResource("1_yw22n")
@@ -1212,8 +1212,10 @@ inventory = ExtResource("2_7fkwg")
 position = Vector2(8.33333, -64.3657)
 scale = Vector2(0.64, 0.719999)
 sprite_frames = SubResource("SpriteFrames_tj3ba")
-animation = &"attack_bow_front"
+animation = &"attack_bow_se"
 autoplay = "idle_front"
+frame = 4
+frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(2.5, -20.5224)
@@ -1224,7 +1226,6 @@ monitorable = true
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(11.25, -60.6343)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_gquti")
 debug_color = Color(0.694118, 0, 0.580392, 0.419608)
 
@@ -1265,7 +1266,10 @@ libraries = {
 position = Vector2(-57.5, -117.537)
 
 [node name="MarkerArrow" type="Marker2D" parent="."]
-position = Vector2(1.66667, -58.7687)
+position = Vector2(8.33333, -66.2313)
+
+[node name="MarkerPlayer" type="Marker2D" parent="."]
+position = Vector2(2.08165e-12, -55.9701)
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 

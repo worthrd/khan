@@ -1220,6 +1220,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="item_spawn_timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 10.0
 
 [connection signal="timeout" from="item_spawn_timer" to="." method="_on_item_spawn_timer_timeout"]

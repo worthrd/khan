@@ -6,6 +6,7 @@ var is_open = false
 @onready var slots: Array = $NinePatchRect/GridContainer.get_children()
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	inv.update.connect(update_slots)
 	update_slots()
 	close()
 	
@@ -19,7 +20,7 @@ func _process(delta):
 		print("i pressed")
 		if is_open:
 			close()
-		else:
+		else: 
 			open()
 
 func open():
