@@ -1,11 +1,11 @@
 [gd_scene load_steps=133 format=3 uid="uid://b61mwrn6ywspb"]
 
 [ext_resource type="PackedScene" uid="uid://cyd5g0i2s8hjr" path="res://scenes/hurtbox.tscn" id="1_8ultm"]
-[ext_resource type="Texture2D" uid="uid://na33d76ops4e" path="res://assets/enemies_v2.png" id="1_btyyq"]
+[ext_resource type="Texture2D" uid="uid://cyflukaup371w" path="res://assets/enemies_v2.png" id="1_btyyq"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_frpjo"]
-[ext_resource type="Texture2D" uid="uid://bn4bimc3xyhgn" path="res://assets/enemies.png" id="2_8i1jq"]
+[ext_resource type="Texture2D" uid="uid://cjbbysdpjxho5" path="res://assets/enemies.png" id="2_8i1jq"]
 [ext_resource type="PackedScene" uid="uid://jcprfrjgl6ns" path="res://scenes/healthbar.tscn" id="3_8upkv"]
-[ext_resource type="Texture2D" uid="uid://dvhg0ghxk5san" path="res://assets/enemy_red_helmet_die.png" id="3_mutlt"]
+[ext_resource type="Texture2D" uid="uid://bxqxclc3qx4mi" path="res://assets/enemy_red_helmet_die.png" id="3_mutlt"]
 [ext_resource type="PackedScene" uid="uid://enn1o1wcibqk" path="res://scenes/hitbox.tscn" id="4_4fncx"]
 [ext_resource type="Script" path="res://misc/states/StateMachine.gd" id="7_d6vyv"]
 [ext_resource type="Script" path="res://misc/states/EnemyIdle.gd" id="8_hui7x"]
@@ -1010,6 +1010,7 @@ _data = {
 radius = 13.7846
 
 [node name="enemy_red_helmet" type="CharacterBody2D"]
+scale = Vector2(0.9, 0.9)
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_frpjo")
@@ -1026,8 +1027,9 @@ debug_color = Color(0.917647, 0.0823529, 0.662745, 0.419608)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["animated_sprite"]]
 scale = Vector2(1.4, 1.4)
 sprite_frames = SubResource("SpriteFrames_cnolf")
-animation = &"idle_front"
+animation = &"idle_left"
 autoplay = "idle_front"
+frame_progress = 0.322226
 
 [node name="detection_area" type="Area2D" parent="."]
 collision_layer = 4
@@ -1071,12 +1073,12 @@ enemy_detection_area = NodePath("../../detection_area")
 
 [node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "enemy_detection_area")]
 script = ExtResource("9_pcqyt")
-enemy = NodePath("../..")
-enemy_detection_area = NodePath("../../detection_area")
+enemy = NodePath("")
+enemy_detection_area = NodePath("")
 
 [node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("10_nhxaq")
-enemy = NodePath("../..")
+enemy = NodePath("")
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://d010cond3xj5q"]
 
-[ext_resource type="Texture2D" uid="uid://3akk85p14hec" path="res://assets/arrow.png" id="1_aa277"]
+[ext_resource type="Texture2D" uid="uid://b53gmkdchynj8" path="res://assets/arrow.png" id="1_aa277"]
 [ext_resource type="Script" path="res://scripts/arrow_collectable.gd" id="1_atptu"]
 [ext_resource type="Resource" uid="uid://c6iky5igdnlkb" path="res://inventory/items/arrow.tres" id="2_mmxqx"]
 
@@ -11,7 +11,12 @@ radius = 22.8035
 script = ExtResource("1_atptu")
 collectable = ExtResource("2_mmxqx")
 
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+rotation = 5.06145
+texture = ExtResource("1_aa277")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -0.436332
 texture = ExtResource("1_aa277")
 
 [node name="Area2D" type="Area2D" parent="."]

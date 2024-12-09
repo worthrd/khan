@@ -3,7 +3,6 @@ class_name StateMachine
 
 @export var initial_state: State
 
-
 var current_state: State
 var states: Dictionary = {}
 var previous_state: State

@@ -16,3 +16,8 @@ func _process(delta):
 func _on_player_body_entered(body):
 	if body.name == "Player":
 		body.collect(collectable)
+		body.collect(collectable)
+		body.collect(collectable)
+		body.collect(collectable)
+		body.collect(collectable)
+		queue_free()

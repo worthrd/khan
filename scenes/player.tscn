@@ -1,20 +1,20 @@
 [gd_scene load_steps=157 format=3 uid="uid://cna7n870qyade"]
 
-[ext_resource type="Texture2D" uid="uid://3va0onbvkkc" path="res://assets/idle_front.png" id="1_1cnca"]
-[ext_resource type="Texture2D" uid="uid://yi6nl6fnd1hb" path="res://assets/walk_down.png" id="1_d8dlb"]
+[ext_resource type="Texture2D" uid="uid://b6bp670c3pld0" path="res://assets/idle_front.png" id="1_1cnca"]
+[ext_resource type="Texture2D" uid="uid://cffdtf8d2uokn" path="res://assets/walk_down.png" id="1_d8dlb"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_yw22n"]
 [ext_resource type="Resource" uid="uid://d0lvvhqwv2ixk" path="res://inventory/player_inventory.tres" id="2_7fkwg"]
-[ext_resource type="Texture2D" uid="uid://cscnfo87dxvu4" path="res://assets/khan_back_attack.png" id="2_88wdt"]
-[ext_resource type="Texture2D" uid="uid://w3t1m0rxqhqq" path="res://assets/khan_left_side_attack.png" id="2_dlcba"]
-[ext_resource type="Texture2D" uid="uid://uiron3fkxcr1" path="res://assets/walk_right.png" id="2_kj1hr"]
-[ext_resource type="Texture2D" uid="uid://i76lribsw46h" path="res://assets/khan_front_attack.png" id="2_u71sy"]
-[ext_resource type="Texture2D" uid="uid://iqo0whdinku7" path="res://assets/walk_up.png" id="3_8lxhi"]
-[ext_resource type="Texture2D" uid="uid://dmtoiuuf6ym88" path="res://assets/khan_right_side_attack.png" id="3_yflvp"]
-[ext_resource type="Texture2D" uid="uid://b885rakytpwh2" path="res://assets/khan_all_arrow_attacks.png" id="7_g8jr7"]
-[ext_resource type="Texture2D" uid="uid://0sg1jnjmjbcx" path="res://assets/walk_left.png" id="7_sdujm"]
-[ext_resource type="Texture2D" uid="uid://c5eliq45dxb1t" path="res://assets/idle_back.png" id="9_frhyj"]
-[ext_resource type="Texture2D" uid="uid://cid73ppofaqvu" path="res://assets/idle_left.png" id="10_fchd5"]
-[ext_resource type="Texture2D" uid="uid://7l3k52syrupv" path="res://assets/idle_right.png" id="11_l3hbo"]
+[ext_resource type="Texture2D" uid="uid://dyacd61w3hoh" path="res://assets/khan_back_attack.png" id="2_88wdt"]
+[ext_resource type="Texture2D" uid="uid://shb0vlckbob8" path="res://assets/khan_left_side_attack.png" id="2_dlcba"]
+[ext_resource type="Texture2D" uid="uid://cda8vc6r0u60s" path="res://assets/walk_right.png" id="2_kj1hr"]
+[ext_resource type="Texture2D" uid="uid://curaui4ui0qc5" path="res://assets/khan_front_attack.png" id="2_u71sy"]
+[ext_resource type="Texture2D" uid="uid://bi8cog1dew77a" path="res://assets/walk_up.png" id="3_8lxhi"]
+[ext_resource type="Texture2D" uid="uid://ctl3g3uj3l3tf" path="res://assets/khan_right_side_attack.png" id="3_yflvp"]
+[ext_resource type="Texture2D" uid="uid://b5u2q0gadfjmg" path="res://assets/khan_all_arrow_attacks.png" id="7_g8jr7"]
+[ext_resource type="Texture2D" uid="uid://b5d37nj3hof05" path="res://assets/walk_left.png" id="7_sdujm"]
+[ext_resource type="Texture2D" uid="uid://dd2vdoka4y1lb" path="res://assets/idle_back.png" id="9_frhyj"]
+[ext_resource type="Texture2D" uid="uid://7k7k2ihi8ev7" path="res://assets/idle_left.png" id="10_fchd5"]
+[ext_resource type="Texture2D" uid="uid://b0xeux78fgcyr" path="res://assets/idle_right.png" id="11_l3hbo"]
 [ext_resource type="PackedScene" uid="uid://cyd5g0i2s8hjr" path="res://scenes/hurtbox.tscn" id="14_3b531"]
 [ext_resource type="PackedScene" uid="uid://jcprfrjgl6ns" path="res://scenes/healthbar.tscn" id="15_4nmgi"]
 [ext_resource type="PackedScene" uid="uid://enn1o1wcibqk" path="res://scenes/hitbox.tscn" id="17_3ac4v"]
@@ -1203,7 +1203,7 @@ _data = {
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(-2, 54)
-scale = Vector2(1.2, 1.072)
+scale = Vector2(0.8, 0.715)
 collision_mask = 4
 script = ExtResource("1_yw22n")
 inventory = ExtResource("2_7fkwg")

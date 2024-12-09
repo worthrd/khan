@@ -3,8 +3,9 @@ extends Node2D
 var arrow = preload("res://scenes/helper/arrow_collectable.tscn")
 
 func _ready():
+	pass
 	# Uncomment when spawn logic is ready
-	$item_spawn_timer.start()
+	#$item_spawn_timer.start()
 
 
 func _on_item_spawn_timer_timeout():
