@@ -51,5 +51,3 @@ Create a rough timeline of the development process, including milestones and est
 
 ## Risks and Challenges
 Identify potential risks, challenges, and obstacles that you might encounter during development and how you plan to address them.
-
-

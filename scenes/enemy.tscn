@@ -1071,14 +1071,11 @@ script = ExtResource("8_hui7x")
 enemy = NodePath("../..")
 enemy_detection_area = NodePath("../../detection_area")
 
-[node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "enemy_detection_area")]
+[node name="Chase" type="Node" parent="StateMachine"]
 script = ExtResource("9_pcqyt")
-enemy = NodePath("")
-enemy_detection_area = NodePath("")
 
-[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+[node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("10_nhxaq")
-enemy = NodePath("")
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
