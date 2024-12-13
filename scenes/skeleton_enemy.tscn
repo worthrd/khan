@@ -268,7 +268,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6b1w4")
 }],
-"loop": false,
+"loop": true,
 "name": &"rise",
 "speed": 8.0
 }, {
@@ -404,9 +404,10 @@ height = 194.0
 scale = Vector2(0.5, 0.5)
 script = SubResource("GDScript_6gu14")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["animated_sprite"]]
 sprite_frames = SubResource("SpriteFrames_15q7u")
-animation = &"walk_front"
+animation = &"rise"
+autoplay = "rise"
 
 [node name="detection_area" type="Area2D" parent="."]
 

@@ -1027,9 +1027,8 @@ debug_color = Color(0.917647, 0.0823529, 0.662745, 0.419608)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["animated_sprite"]]
 scale = Vector2(1.4, 1.4)
 sprite_frames = SubResource("SpriteFrames_cnolf")
-animation = &"idle_left"
+animation = &"idle_front"
 autoplay = "idle_front"
-frame_progress = 0.322226
 
 [node name="detection_area" type="Area2D" parent="."]
 collision_layer = 4

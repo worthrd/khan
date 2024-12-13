@@ -1349,5 +1349,6 @@ wait_time = 10.0
 [node name="Barrel" parent="." instance=ExtResource("9_n720v")]
 
 [node name="skeleton_enemy" parent="." instance=ExtResource("15_5wccf")]
+position = Vector2(400, 232)
 
 [connection signal="timeout" from="item_spawn_timer" to="." method="_on_item_spawn_timer_timeout"]
