@@ -1351,4 +1351,6 @@ wait_time = 10.0
 [node name="skeleton_enemy" parent="." instance=ExtResource("15_5wccf")]
 position = Vector2(400, 232)
 
+[node name="spawn_area" type="Area2D" parent="."]
+
 [connection signal="timeout" from="item_spawn_timer" to="." method="_on_item_spawn_timer_timeout"]

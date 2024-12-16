@@ -1,15 +1,20 @@
 extends Node2D
 
 var arrow = preload("res://scenes/helper/arrow_collectable.tscn")
+var wizard = preload("res://scenes/enemy_wizard.tscn")
+
+
 
 func _ready():
-	pass
+	# pass
 	# Uncomment when spawn logic is ready
-	#$item_spawn_timer.start()
+	$item_spawn_timer.start()
 
 
 func _on_item_spawn_timer_timeout():
 	var arrow_instance = arrow.instantiate()
+	
+	var wizard = wizard.instantiate()
 	
 	var player_pos = $Player.position
 	
@@ -18,5 +23,7 @@ func _on_item_spawn_timer_timeout():
 	
 	var rand_position = Vector2(rand_x, rand_y)
 	arrow_instance.position = rand_position
+	wizard.position = rand_position
 	
 	add_child(arrow_instance)
+	add_child(wizard)
