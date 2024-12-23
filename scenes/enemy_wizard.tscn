@@ -1,9 +1,16 @@
-[gd_scene load_steps=31 format=3 uid="uid://dhj3q8285srq"]
+[gd_scene load_steps=34 format=3 uid="uid://dhj3q8285srq"]
 
 [ext_resource type="Texture2D" uid="uid://j1r5vpeo43tk" path="res://assets/enemy_creator.png" id="1_a6kmc"]
 [ext_resource type="Script" path="res://scripts/enemy_wizard.gd" id="1_dhtta"]
 [ext_resource type="PackedScene" uid="uid://cyd5g0i2s8hjr" path="res://scenes/hurtbox.tscn" id="2_spxjp"]
 [ext_resource type="PackedScene" uid="uid://jcprfrjgl6ns" path="res://scenes/healthbar.tscn" id="3_3r06f"]
+[ext_resource type="Script" path="res://misc/states/state_machine_wizard.gd" id="5_jsjqa"]
+[ext_resource type="Script" path="res://misc/states/wizard_spawn.gd" id="6_w052d"]
+[ext_resource type="Script" path="res://misc/states/wizard_create.gd" id="7_fwjh0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4divg"]
+radius = 59.0
+height = 186.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m8px7"]
 atlas = ExtResource("1_a6kmc")
@@ -191,31 +198,41 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_omnx8")
 }],
-"loop": true,
+"loop": false,
 "name": &"spell_right",
 "speed": 8.0
 }]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4divg"]
-radius = 59.0
-height = 186.0
 
 [node name="enemy_wizard" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_dhtta")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Hurtbox" parent="." instance=ExtResource("2_spxjp")]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CapsuleShape2D_4divg")
+
+[node name="wizard_animated" type="AnimatedSprite2D" parent="." groups=["animated_sprite_wizard"]]
 sprite_frames = SubResource("SpriteFrames_1nbwc")
 animation = &"spell_left"
 autoplay = "expose"
-
-[node name="Hurtbox" parent="AnimatedSprite2D" instance=ExtResource("2_spxjp")]
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="AnimatedSprite2D/Hurtbox"]
-shape = SubResource("CapsuleShape2D_4divg")
 
 [node name="Healthbar" parent="." instance=ExtResource("3_3r06f")]
 offset_left = -67.0
 offset_top = -125.0
 offset_right = 53.0
 offset_bottom = -105.0
+
+[node name="StateMachineWizard" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("5_jsjqa")
+initial_state = NodePath("WizardSpawn")
+
+[node name="WizardSpawn" type="Node" parent="StateMachineWizard" node_paths=PackedStringArray("enemy")]
+script = ExtResource("6_w052d")
+enemy = NodePath("../..")
+
+[node name="WizardCreate" type="Node" parent="StateMachineWizard" node_paths=PackedStringArray("enemy")]
+script = ExtResource("7_fwjh0")
+enemy = NodePath("../..")
+
+[connection signal="animation_finished" from="wizard_animated" to="StateMachineWizard/WizardSpawn" method="_on_animated_sprite_2d_animation_finished"]

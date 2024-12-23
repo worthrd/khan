@@ -1329,6 +1329,7 @@ rotation = 1.57079
 shape = SubResource("CapsuleShape2D_h4v75")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="InventoryUI" parent="CanvasLayer" instance=ExtResource("7_qmw1k")]
 anchors_preset = 8
@@ -1344,7 +1345,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="item_spawn_timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 3.0
 
 [node name="Barrel" parent="." instance=ExtResource("9_n720v")]
 
@@ -1352,5 +1353,8 @@ wait_time = 10.0
 position = Vector2(400, 232)
 
 [node name="spawn_area" type="Area2D" parent="."]
+
+[node name="spawn_collision_polygon" type="CollisionPolygon2D" parent="spawn_area" groups=["spawn_collision_polygon"]]
+polygon = PackedVector2Array(904, 174, 1000, 13, 1310, 10, 1539, 20, 1613, 147, 1610, 645, 1606, 935, 1375, 953, 908, 945, 566, 943, 60, 936, 20, 737, 652, 726, 702, 438)
 
 [connection signal="timeout" from="item_spawn_timer" to="." method="_on_item_spawn_timer_timeout"]
