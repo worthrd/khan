@@ -15,7 +15,7 @@ func _set_health(value):
 
 func die():
 	print("enemy is dying")
-	$AnimatedSprite2D.play("die")
+	$animated_sprite.play("die")
 	#queue_free()
 
 
@@ -28,5 +28,5 @@ func _on_hurtbox_area_entered(area):
 
 
 func _on_animated_sprite_2d_animation_finished():
-	if $AnimatedSprite2D.animation == "die":
+	if $animated_sprite.animation == "die":
 		queue_free()

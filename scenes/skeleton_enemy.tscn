@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://brjojb4hum6ci"]
+[gd_scene load_steps=64 format=3 uid="uid://brjojb4hum6ci"]
 
 [ext_resource type="Texture2D" uid="uid://cqku6eptu80rb" path="res://assets/enemy_zoombie_die.png" id="1_6iyuh"]
 [ext_resource type="Texture2D" uid="uid://dndsd24r6s7ef" path="res://assets/enemy_zoombie.png" id="1_21hej"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cyd5g0i2s8hjr" path="res://scenes/hurtbox.tscn" id="5_a568p"]
 [ext_resource type="Script" path="res://misc/states/state_machine_skeleton.gd" id="7_i5g0p"]
 [ext_resource type="Script" path="res://misc/states/rise.gd" id="8_rjgrj"]
+[ext_resource type="Script" path="res://misc/states/SkeletonChase.gd" id="9_ex47j"]
 
 [sub_resource type="GDScript" id="GDScript_6gu14"]
 script/source = "extends \"res://scripts/enemy.gd\"
@@ -268,7 +269,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6b1w4")
 }],
-"loop": true,
+"loop": false,
 "name": &"rise",
 "speed": 8.0
 }, {
@@ -406,7 +407,7 @@ script = SubResource("GDScript_6gu14")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["animated_sprite"]]
 sprite_frames = SubResource("SpriteFrames_15q7u")
-animation = &"rise"
+animation = &"walk_right"
 autoplay = "rise"
 
 [node name="detection_area" type="Area2D" parent="."]
@@ -439,5 +440,10 @@ initial_state = NodePath("Rise")
 
 [node name="Rise" type="Node" parent="StateMachineSkeleton" node_paths=PackedStringArray("enemy", "enemy_detection_area")]
 script = ExtResource("8_rjgrj")
+enemy = NodePath("../..")
+enemy_detection_area = NodePath("../../detection_area")
+
+[node name="Chase" type="Node" parent="StateMachineSkeleton" node_paths=PackedStringArray("enemy", "enemy_detection_area")]
+script = ExtResource("9_ex47j")
 enemy = NodePath("../..")
 enemy_detection_area = NodePath("../../detection_area")

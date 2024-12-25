@@ -11,4 +11,4 @@ func Enter():
 func _on_detection_area_body_entered(body):
 	print("somebody is in skeleton !")
 	self.player = body
-	#Transitioned.emit(self, "chase")
+	Transitioned.emit(self, "chase")

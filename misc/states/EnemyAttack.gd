@@ -8,9 +8,9 @@ var healthbar = null
 
 func Enter():
 	self.player = context.previous_state.player
-	animated_sprite = get_tree().get_first_node_in_group("animated_sprite")
-	animation_player = get_tree().get_first_node_in_group("animation_player")
-	healthbar = get_tree().get_first_node_in_group("healthbar")
+	animated_sprite = get_parent().get_parent().get_node("animated_sprite")
+	animation_player = get_parent().get_parent().get_node("animation_player")
+	healthbar = get_parent().get_parent().get_node("Healthbar")
 
 
 func Physics_Update(delta: float):

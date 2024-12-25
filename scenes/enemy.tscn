@@ -1024,7 +1024,7 @@ scale = Vector2(5.44, 6)
 shape = SubResource("CapsuleShape2D_gx8ok")
 debug_color = Color(0.917647, 0.0823529, 0.662745, 0.419608)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["animated_sprite"]]
+[node name="animated_sprite" type="AnimatedSprite2D" parent="." groups=["animated_sprite"]]
 scale = Vector2(1.4, 1.4)
 sprite_frames = SubResource("SpriteFrames_cnolf")
 animation = &"attack_left"
@@ -1044,7 +1044,7 @@ offset_right = 45.0
 offset_bottom = -83.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_bb3ax")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." groups=["animation_player"]]
+[node name="animation_player" type="AnimationPlayer" parent="." groups=["animation_player"]]
 libraries = {
 "": SubResource("AnimationLibrary_ulb1e")
 }
@@ -1052,6 +1052,7 @@ libraries = {
 [node name="Marker2D" type="Marker2D" parent="."]
 
 [node name="Hitbox" parent="Marker2D" instance=ExtResource("4_4fncx")]
+scale = Vector2(1.66667, 1.04444)
 collision_layer = 4
 monitoring = true
 
@@ -1070,14 +1071,17 @@ script = ExtResource("8_hui7x")
 enemy = NodePath("../..")
 enemy_detection_area = NodePath("../../detection_area")
 
-[node name="Chase" type="Node" parent="StateMachine"]
+[node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "enemy_detection_area")]
 script = ExtResource("9_pcqyt")
+enemy = NodePath("../..")
+enemy_detection_area = NodePath("../../detection_area")
 
-[node name="Attack" type="Node" parent="StateMachine"]
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("10_nhxaq")
+enemy = NodePath("../..")
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="animated_sprite" to="." method="_on_animated_sprite_2d_animation_finished"]
 
 [editable path="Hurtbox"]
 [editable path="Marker2D/Hitbox"]
