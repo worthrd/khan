@@ -3,9 +3,12 @@ extends "res://misc/states/EnemyIdle.gd"
 
 var skeleton = preload("res://scenes/skeleton_enemy.tscn")
 var animated_sprite = null
+var timer = null 
 
 func Enter():
-	animated_sprite = get_parent().get_parent().get_node("wizard_animated")
+	animated_sprite = get_parent().get_parent().get_node("animated_sprite")
+	timer = get_parent().get_parent().get_node("enemy_create_timer")
+	#timer.start()
 	make_skeleton()	
 	
 func make_skeleton():
@@ -15,6 +18,11 @@ func make_skeleton():
 	add_child(skeleton_instance)
 	
 func Physics_Update(delta: float):
-	animated_sprite.play("spell_left")
+	if animated_sprite.animation !="die":
+		animated_sprite.play("spell_left")
 	
 	
+
+
+func _on_enemy_create_timer_timeout() -> void:
+	make_skeleton()

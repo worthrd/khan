@@ -12,6 +12,20 @@
 
 [sub_resource type="GDScript" id="GDScript_6gu14"]
 script/source = "extends \"res://scripts/enemy.gd\"
+
+
+func _on_hurtbox_area_entered(area):
+	print(\"enemy got hit!\")
+	if area.name == \"Hitbox\":
+		healthbar.health  -= area.hurt_val
+		if healthbar.health <= 0:
+			die()
+
+
+
+func _on_animated_sprite_animation_finished() -> void:
+	if $animated_sprite.animation == \"die\":
+		queue_free()
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yp8df"]
@@ -391,21 +405,21 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l2ag4"]
-radius = 393.005
+radius = 647.519
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t5f08"]
 radius = 27.0
 height = 192.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1n1a4"]
-radius = 32.0
-height = 194.0
+radius = 50.0
+height = 260.0
 
 [node name="skeleton_enemy" type="CharacterBody2D"]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 script = SubResource("GDScript_6gu14")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["animated_sprite"]]
+[node name="animated_sprite" type="AnimatedSprite2D" parent="." groups=["animated_sprite"]]
 sprite_frames = SubResource("SpriteFrames_15q7u")
 animation = &"walk_right"
 autoplay = "rise"
@@ -416,18 +430,21 @@ autoplay = "rise"
 shape = SubResource("CircleShape2D_l2ag4")
 
 [node name="Healthbar" parent="." instance=ExtResource("3_ww2jp")]
-offset_left = -37.0
-offset_top = -112.0
-offset_right = 31.0
-offset_bottom = -106.0
+offset_left = -37.5
+offset_top = -125.0
+offset_right = 30.5
+offset_bottom = -119.0
+scale = Vector2(1.05082, 2.46523)
 
 [node name="Hitbox" parent="." instance=ExtResource("4_0a1nd")]
+collision_layer = 4
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(-5, -1)
 shape = SubResource("CapsuleShape2D_t5f08")
 
 [node name="Hurtbox" parent="." instance=ExtResource("5_a568p")]
+collision_layer = 4
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(-5, 0)
@@ -447,3 +464,6 @@ enemy_detection_area = NodePath("../../detection_area")
 script = ExtResource("9_ex47j")
 enemy = NodePath("../..")
 enemy_detection_area = NodePath("../../detection_area")
+
+[connection signal="animation_finished" from="animated_sprite" to="." method="_on_animated_sprite_animation_finished"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

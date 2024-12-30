@@ -1,8 +1,11 @@
 extends "res://misc/states/EnemyIdle.gd"
 
+var animated_sprite = null
 
 func Enter():
-	pass
-
-func _on_animated_sprite_2d_animation_finished() -> void:
-	Transitioned.emit(self, "wizardcreate")
+	animated_sprite = get_parent().get_parent().get_node("animated_sprite")
+	
+func Physics_Update(delta: float):
+	if animated_sprite.is_playing() == false && animated_sprite.animation == "expose":
+		Transitioned.emit(self, "wizardcreate")
+	

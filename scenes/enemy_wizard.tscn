@@ -208,13 +208,14 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("1_dhtta")
 
 [node name="Hurtbox" parent="." instance=ExtResource("2_spxjp")]
+collision_layer = 4
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape2D_4divg")
 
-[node name="wizard_animated" type="AnimatedSprite2D" parent="." groups=["animated_sprite_wizard"]]
+[node name="animated_sprite" type="AnimatedSprite2D" parent="." groups=["animated_sprite_wizard"]]
 sprite_frames = SubResource("SpriteFrames_1nbwc")
-animation = &"spell_left"
+animation = &"expose"
 autoplay = "expose"
 
 [node name="Healthbar" parent="." instance=ExtResource("3_3r06f")]
@@ -235,4 +236,8 @@ enemy = NodePath("../..")
 script = ExtResource("7_fwjh0")
 enemy = NodePath("../..")
 
-[connection signal="animation_finished" from="wizard_animated" to="StateMachineWizard/WizardSpawn" method="_on_animated_sprite_2d_animation_finished"]
+[node name="enemy_create_timer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="animation_finished" from="animated_sprite" to="." method="_on_animated_sprite_animation_finished"]
+[connection signal="timeout" from="enemy_create_timer" to="StateMachineWizard/WizardCreate" method="_on_enemy_create_timer_timeout"]
