@@ -24,7 +24,7 @@ func Physics_Update(delta: float):
 		var proposed = Helper.calculate_direction(direction_vector)
 		
 		var _distance = Helper.calculate_distance(direction_vector)
-		if _distance < Helper.attack_distance: #enemy attack animation
+		if _distance < Helper.get_attack_distance(enemy.attack_type): #enemy attack animation
 			Transitioned.emit(self,"attack")
 		else: 
 			_play_walk_animation(proposed,delta)

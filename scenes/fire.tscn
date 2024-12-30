@@ -1,6 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://c1i213qbtt3yp"]
+[gd_scene load_steps=24 format=3 uid="uid://c1i213qbtt3yp"]
 
+[ext_resource type="Script" path="res://scenes/fire.gd" id="1_5xe2w"]
 [ext_resource type="Texture2D" uid="uid://b3q6xkhi3cnxg" path="res://assets/fire_ball.png" id="1_ehxbm"]
+[ext_resource type="PackedScene" uid="uid://enn1o1wcibqk" path="res://scenes/hitbox.tscn" id="2_6smr1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mcs2b"]
 atlas = ExtResource("1_ehxbm")
@@ -77,37 +79,37 @@ region = Rect2(160, 32, 32, 32)
 [sub_resource type="SpriteFrames" id="SpriteFrames_5v1vd"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_mcs2b")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_vjhuo")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_popcj")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_lg46y")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_w1jhd")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_crq67")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_0ajcp")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_vfwks")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_4uaf8")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_82hqo")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_ypmhq")
 }, {
 "duration": 1.0,
@@ -141,15 +143,26 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_e85qy"]
-radius = 11.0454
+[sub_resource type="CircleShape2D" id="CircleShape2D_q0vdq"]
 
 [node name="Fire" type="Area2D"]
+scale = Vector2(1.5, 1.5)
 collision_layer = 4
+script = ExtResource("1_5xe2w")
 
 [node name="FireAnimatedSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5v1vd")
-animation = &"move"
+animation = &"explode"
+autoplay = "move"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_e85qy")
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+
+[node name="Hitbox" parent="." instance=ExtResource("2_6smr1")]
+collision_layer = 4
+monitoring = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_q0vdq")
+
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

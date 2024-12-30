@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @onready var healthbar = $Healthbar
-
+@export var attack_type: Helper.AttackType = Helper.AttackType.Melee
 
 func _ready():
 	healthbar.init_health(Helper.health)

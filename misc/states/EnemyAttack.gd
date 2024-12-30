@@ -21,7 +21,7 @@ func Physics_Update(delta: float):
 		_play_attack_animation(proposed)
 		
 		var _distance = Helper.calculate_distance(direction_vector)
-		if _distance > Helper.attack_distance:
+		if _distance > Helper.get_attack_distance(enemy.attack_type):
 			Transitioned.emit(self, "chase")
 
 

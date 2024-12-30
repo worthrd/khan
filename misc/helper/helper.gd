@@ -1,8 +1,8 @@
 class_name Helper
 
-static var attack_distance = 100.0
 static var enemy_speed = 2
 static var health = 100
+enum AttackType {Melee, Fire}
 
 static func calculate_direction(direction_to_player:Vector2):
 		var proposed_direction = ""
@@ -82,3 +82,11 @@ static func get_random_point_in_triangle(triangle: Array) -> Vector2:
 	var random_point = v0 + (v1 - v0) * r1 + (v2 - v0) * r2
 	return random_point
 		
+
+static func get_attack_distance(attack_type: AttackType = AttackType.Melee):
+	match attack_type:
+		AttackType.Melee: 
+			return 100.0
+		AttackType.Fire:
+			return 200.0 
+	

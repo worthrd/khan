@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://brjojb4hum6ci"]
+[gd_scene load_steps=65 format=3 uid="uid://brjojb4hum6ci"]
 
 [ext_resource type="Texture2D" uid="uid://cqku6eptu80rb" path="res://assets/enemy_zoombie_die.png" id="1_6iyuh"]
 [ext_resource type="Texture2D" uid="uid://dndsd24r6s7ef" path="res://assets/enemy_zoombie.png" id="1_21hej"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://misc/states/state_machine_skeleton.gd" id="7_i5g0p"]
 [ext_resource type="Script" path="res://misc/states/rise.gd" id="8_rjgrj"]
 [ext_resource type="Script" path="res://misc/states/SkeletonChase.gd" id="9_ex47j"]
+[ext_resource type="Script" path="res://misc/states/SkeletonAttack.gd" id="10_g1nb8"]
 
 [sub_resource type="GDScript" id="GDScript_6gu14"]
 script/source = "extends \"res://scripts/enemy.gd\"
@@ -405,7 +406,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l2ag4"]
-radius = 647.519
+radius = 375.075
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t5f08"]
 radius = 27.0
@@ -418,6 +419,7 @@ height = 260.0
 [node name="skeleton_enemy" type="CharacterBody2D"]
 scale = Vector2(0.4, 0.4)
 script = SubResource("GDScript_6gu14")
+attack_type = 1
 
 [node name="animated_sprite" type="AnimatedSprite2D" parent="." groups=["animated_sprite"]]
 sprite_frames = SubResource("SpriteFrames_15q7u")
@@ -465,5 +467,12 @@ script = ExtResource("9_ex47j")
 enemy = NodePath("../..")
 enemy_detection_area = NodePath("../../detection_area")
 
+[node name="Attack" type="Node" parent="StateMachineSkeleton" node_paths=PackedStringArray("enemy")]
+script = ExtResource("10_g1nb8")
+enemy = NodePath("../..")
+
+[node name="fire_timer" type="Timer" parent="."]
+
 [connection signal="animation_finished" from="animated_sprite" to="." method="_on_animated_sprite_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="timeout" from="fire_timer" to="StateMachineSkeleton/Attack" method="_on_fire_timer_timeout"]
