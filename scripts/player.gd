@@ -125,9 +125,9 @@ func _physics_process(delta):
 	
 
 func _on_hurtbox_area_entered(area):
-	print("the player got hit!")
-	print(healthbar.health)
 	healthbar.health -= area.hurt_val
+	if healthbar.health <= 0:
+		queue_free()
 	
 func collect(item):
 	inventory.insert(item)
