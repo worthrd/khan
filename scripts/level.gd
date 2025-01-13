@@ -31,6 +31,14 @@ func spawn_arrow():
 	
 func spawn_wizard():
 	var wizard_instance= wizard.instantiate()
-	var spawn_area = get_tree().get_first_node_in_group("spawn_collision_polygon")
-	wizard_instance.position = Helper.get_random_point_in_polygon(spawn_area)
+	var spawn_areas = get_tree().get_nodes_in_group("spawn_collision_polygon")
+	var area_index = randi_range(0, spawn_areas.size()-1)
+	
+	#var spawn_area = get_tree().get_first_node_in_group("spawn_collision_polygon")
+	#wizard_instance.position = Helper.get_random_point_in_polygon(spawn_area)
+	wizard_instance.position = Helper.get_random_point_in_polygon(spawn_areas[area_index])
 	add_child(wizard_instance)
+
+
+func _on_win_area_area_entered(area: Area2D) -> void:
+		get_tree().change_scene_to_file("res://scenes/game_win.tscn")

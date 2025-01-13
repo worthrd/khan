@@ -20,6 +20,7 @@ position = Vector2(0, 4.76837e-07)
 scale = Vector2(0.3, 0.6)
 
 [node name="Hitbox" parent="." instance=ExtResource("3_1lwqh")]
+hurt_val = 50.0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
 rotation = 1.5708

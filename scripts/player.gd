@@ -13,6 +13,9 @@ var arrow = preload("res://scenes/arrow.tscn")
 
 var health = 200
 
+@export var walk_sound_interval = 0.3  # Time between footsteps
+var walk_sound_timer = 0.0
+
 func _ready():
 	healthbar.init_health(health)
 	
@@ -67,9 +70,15 @@ func _physics_process(delta):
 		if velocity.length()>0:
 			velocity = velocity.normalized() * speed
 			animated_sprite.play(animation_input)
+			
+			walk_sound_timer -= delta
+			if walk_sound_timer <= 0.0:
+				play_walk_sound()
+				walk_sound_timer = walk_sound_interval
 		
 		position+=velocity * delta
 		move_and_slide()
+		
 		
 			
 		if input == Vector2(0,0):
@@ -81,6 +90,8 @@ func _physics_process(delta):
 				animated_sprite.play("idle_right")
 			elif last_direction == "left":
 				animated_sprite.play("idle_left")
+			
+			walk_sound_timer = 0.0
 				
 		var mouse_pos = get_global_mouse_position()
 		$MarkerArrow.look_at(mouse_pos)
@@ -127,9 +138,14 @@ func _physics_process(delta):
 func _on_hurtbox_area_entered(area):
 	healthbar.health -= area.hurt_val
 	if healthbar.health <= 0:
-		queue_free()
+		get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 	
 func collect(item):
 	inventory.insert(item)
+	
+func play_walk_sound():
+	if $AudioStreamPlayer.playing:
+		$AudioStreamPlayer.stop()
+	$AudioStreamPlayer.play()
 	
 	

@@ -17,6 +17,7 @@ func die():
 	print("enemy is dying")
 	$animated_sprite.play("die")
 	#queue_free()
+	Global.current_score+=200
 
 
 func _on_hurtbox_area_entered(area):

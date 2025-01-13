@@ -1,4 +1,4 @@
-[gd_scene load_steps=157 format=3 uid="uid://cna7n870qyade"]
+[gd_scene load_steps=158 format=3 uid="uid://cna7n870qyade"]
 
 [ext_resource type="Texture2D" uid="uid://b6bp670c3pld0" path="res://assets/idle_front.png" id="1_1cnca"]
 [ext_resource type="Texture2D" uid="uid://cffdtf8d2uokn" path="res://assets/walk_down.png" id="1_d8dlb"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://jcprfrjgl6ns" path="res://scenes/healthbar.tscn" id="15_4nmgi"]
 [ext_resource type="PackedScene" uid="uid://enn1o1wcibqk" path="res://scenes/hitbox.tscn" id="17_3ac4v"]
 [ext_resource type="PackedScene" uid="uid://djub5xkmbjqk" path="res://scenes/active_item.tscn" id="18_7n7xt"]
+[ext_resource type="AudioStream" uid="uid://cpahx3e3owvoh" path="res://assets/sounds/grass_walk.wav" id="20_axwhf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8yquq"]
 atlas = ExtResource("2_88wdt")
@@ -1212,13 +1213,12 @@ inventory = ExtResource("2_7fkwg")
 position = Vector2(8.33333, -64.3657)
 scale = Vector2(0.64, 0.719999)
 sprite_frames = SubResource("SpriteFrames_tj3ba")
-animation = &"attack_bow_se"
+animation = &"go_left"
 autoplay = "idle_front"
-frame = 4
-frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(2.5, -20.5224)
+zoom = Vector2(0.6, 0.6)
 
 [node name="Hurtbox" parent="." instance=ExtResource("14_3b531")]
 collision_mask = 4
@@ -1270,6 +1270,9 @@ position = Vector2(8.33333, -66.2313)
 
 [node name="MarkerPlayer" type="Marker2D" parent="."]
 position = Vector2(2.08165e-12, -55.9701)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_axwhf")
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 

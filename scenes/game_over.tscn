@@ -1,0 +1,89 @@
+[gd_scene load_steps=7 format=3 uid="uid://boclwwwfdff6p"]
+
+[ext_resource type="Texture2D" uid="uid://5tmvxf6g2mcg" path="res://assets/new_inventory_slot.png" id="1_g5kbt"]
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_wrgxg"]
+[ext_resource type="Texture2D" uid="uid://dhiebe8ix3pl4" path="res://assets/khan_base_front.png" id="2_nguhn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pul3d"]
+bg_color = Color(0.951176, 0.406957, 0.447183, 1)
+border_width_bottom = 10
+border_color = Color(0.735767, 0.191545, 0.264545, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_la0s1"]
+bg_color = Color(0.48744, 0.4464, 0.72, 1)
+border_width_bottom = 10
+border_color = Color(0.33173, 0.3038, 0.49, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_7wd17"]
+Button/styles/hover = SubResource("StyleBoxFlat_pul3d")
+Button/styles/normal = SubResource("StyleBoxFlat_la0s1")
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource("1_wrgxg")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+anchors_preset = -1
+anchor_right = 0.382
+anchor_bottom = 0.376
+offset_left = 317.0
+offset_top = 109.0
+offset_right = 426.04
+offset_bottom = 320.28
+texture = ExtResource("1_g5kbt")
+
+[node name="Quit" type="Button" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 113.0
+offset_top = 305.0
+offset_right = -117.0
+offset_bottom = -110.0
+theme = SubResource("Theme_7wd17")
+theme_override_font_sizes/font_size = 32
+text = "QUIT
+"
+
+[node name="ReStart" type="Button" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 113.0
+offset_top = 229.0
+offset_right = -117.0
+offset_bottom = -188.0
+theme = SubResource("Theme_7wd17")
+theme_override_font_sizes/font_size = 32
+text = "RESTART"
+
+[node name="Label" type="Label" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.574
+anchor_bottom = 0.093
+offset_left = 121.0
+offset_top = 149.0
+offset_right = 120.748
+offset_bottom = 149.174
+theme_override_font_sizes/font_size = 32
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="TextureRect"]
+position = Vector2(290, 103)
+scale = Vector2(0.670898, 0.62207)
+texture = ExtResource("2_nguhn")
+
+[connection signal="pressed" from="TextureRect/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="TextureRect/ReStart" to="." method="_on_re_start_pressed"]

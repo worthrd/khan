@@ -1,0 +1,91 @@
+[gd_scene load_steps=11 format=3 uid="uid://srfkphjl3oji"]
+
+[ext_resource type="Texture2D" uid="uid://5tmvxf6g2mcg" path="res://assets/new_inventory_slot.png" id="1_8843q"]
+[ext_resource type="Script" path="res://scripts/win_label.gd" id="2_fej2w"]
+[ext_resource type="Texture2D" uid="uid://curaui4ui0qc5" path="res://assets/khan_front_attack.png" id="3_n08t8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nx1fs"]
+atlas = ExtResource("3_n08t8")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7vdf"]
+atlas = ExtResource("3_n08t8")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2e6e"]
+atlas = ExtResource("3_n08t8")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bik8k"]
+atlas = ExtResource("3_n08t8")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nqhh"]
+atlas = ExtResource("3_n08t8")
+region = Rect2(1024, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvq3j"]
+atlas = ExtResource("3_n08t8")
+region = Rect2(1280, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lctlc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nx1fs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7vdf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2e6e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bik8k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0nqhh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvq3j")
+}],
+"loop": true,
+"name": &"win",
+"speed": 6.0
+}]
+
+[node name="game_win" type="CanvasLayer"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 86.0
+offset_top = 57.0
+offset_right = -167.0
+offset_bottom = -55.0
+texture = ExtResource("1_8843q")
+
+[node name="Label" type="Label" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.039
+anchor_top = 0.063
+anchor_right = 0.942
+anchor_bottom = 0.954
+offset_left = 88.947
+offset_top = 247.696
+offset_right = -118.67
+offset_bottom = -237.684
+theme_override_font_sizes/font_size = 32
+text = "YOU WIN !!"
+script = ExtResource("2_fej2w")
+
+[node name="AnimationWin" type="AnimatedSprite2D" parent="TextureRect"]
+position = Vector2(498, 193)
+scale = Vector2(1.5, 1.511)
+sprite_frames = SubResource("SpriteFrames_lctlc")
+animation = &"win"
+autoplay = "win"
+frame_progress = 0.87207

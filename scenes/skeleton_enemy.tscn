@@ -21,6 +21,7 @@ func _on_hurtbox_area_entered(area):
 		healthbar.health  -= area.hurt_val
 		if healthbar.health <= 0:
 			die()
+			
 
 
 
